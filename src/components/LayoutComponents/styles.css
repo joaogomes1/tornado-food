@@ -1,0 +1,31 @@
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.container-login {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Reduzindo o padding para 10px */
+    background-color: #111;
+}
+
+.wrap-login {
+    width: 400px;
+    background-color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 15px 20px 15px 20px; /* Reduzindo o padding para 15px no topo e na parte inferior e 20px nos lados esquerdo e direito */
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
