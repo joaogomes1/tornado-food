@@ -5,8 +5,9 @@ const Home = () => {
   return (
     <div>
       Home
-      <hr></hr>
-      <Link href="/login">login</Link>
+      <Link href="/login" className="hover:underline hover: text-blue-500">
+        login
+      </Link>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import React from 'react';
 
 // import tornadofood from 'TornadoFood.svg'
+import Link from 'next/link';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -63,7 +64,12 @@ const Register = () => {
 
         {/* era uma tag span, estava dando erro */}
         <div className="login-form-title relative">
-          <Image src={'tornadofood.svg'} alt="" fill className="object-cover" />
+          <Image
+            src="/tornadofood.svg"
+            alt=""
+            fill
+            className="object-contain"
+          />
         </div>
 
         <div className="wrap-input">
@@ -139,9 +145,11 @@ const Register = () => {
         <div className="text-center">
           <span className="txt1">Já possui conta?</span>
 
-          <a className="txt2" href="/login">
+          <Link className="txt2 hover:underline" href="/login">
             Acessar com Email e Senha
-          </a>
+            {/* 'fazer login'? */}
+            {/* 'acessar conta'? */}
+          </Link>
         </div>
       </form>
     </LayoutComponents>
