@@ -15,6 +15,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
   // Função para formatar o CPF
   const formatCPF = (value: string) => {
@@ -64,11 +65,43 @@ const Register = () => {
     return formattedValue;
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!name || !cpf || !celular || !email || !password || !confirmPassword) {
+      setError('Ops! Preencha todos os campos.');
+    }
+
+    try {
+      const res = await fetch('api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          cpf,
+          celular,
+          email,
+          password,
+          confirmPassword,
+        }),
+      });
+
+      if (res.ok) {
+        const form = event.currentTarget;
+        form.reset();
+      } else {
+        console.log('user registration failed');
+      }
+    } catch (error) {
+      console.log('error during registration', error);
+    }
+  };
+
   return (
     <LayoutComponents>
-      <form className="login-form">
+      <form onSubmit={handleSubmit} className="login-form" id="registerForm">
         <span className="login-form-title"> Criar Conta </span>
-
         {/* era uma tag span, estava dando erro */}
         <div className="login-form-title relative">
           <Image
@@ -78,7 +111,6 @@ const Register = () => {
             className="object-contain"
           />
         </div>
-
         <div className="wrap-input">
           <input
             className={name !== '' ? 'has-val input' : 'input'}
@@ -89,7 +121,6 @@ const Register = () => {
           />
           <span className="focus-input" data-placeholder="Nome"></span>
         </div>
-
         <div className="wrap-input">
           <input
             className={cpf !== '' ? 'has-val input' : 'input'}
@@ -100,7 +131,6 @@ const Register = () => {
           />
           <span className="focus-input" data-placeholder="CPF"></span>
         </div>
-
         <div className="wrap-input">
           <input
             className={celular !== '' ? 'has-val input' : 'input'}
@@ -111,7 +141,6 @@ const Register = () => {
           />
           <span className="focus-input" data-placeholder="Celular"></span>
         </div>
-
         <div className="wrap-input">
           <input
             className={email !== '' ? 'has-val input' : 'input'}
@@ -121,7 +150,6 @@ const Register = () => {
           />
           <span className="focus-input" data-placeholder="Email"></span>
         </div>
-
         <div className="wrap-input">
           <input
             className={password !== '' ? 'has-val input' : 'input'}
@@ -131,7 +159,6 @@ const Register = () => {
           />
           <span className="focus-input" data-placeholder="Senha"></span>
         </div>
-
         <div className="wrap-input">
           <input
             className={confirmPassword !== '' ? 'has-val input' : 'input'}
@@ -144,11 +171,14 @@ const Register = () => {
             data-placeholder="Confirme a Senha"
           ></span>
         </div>
-
+        {error && (
+          <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md my-2">
+            {error}
+          </div>
+        )}
         <div className="container-login-form-btn">
-          <button className="login-form-btn">Login</button>
+          <button className="login-form-btn">Criar Conta</button>
         </div>
-
         <div className="text-center">
           <span className="txt1">Já possui conta?</span>
 
