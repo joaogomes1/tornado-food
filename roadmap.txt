@@ -1,3 +1,4 @@
+(includes migration to typescript)
 create app
 remove package-lock.json
 yarn
