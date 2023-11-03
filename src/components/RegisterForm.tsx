@@ -9,12 +9,12 @@ import React from 'react';
 import Link from 'next/link';
 
 const Register = () => {
-  const [name, setName] = useState('');
+  const [nome, setNome] = useState('');
   const [cpf, setCPF] = useState('');
   const [celular, setCelular] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
   const [error, setError] = useState('');
 
   // Função para formatar o CPF
@@ -67,8 +67,12 @@ const Register = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!name || !cpf || !celular || !email || !password || !confirmPassword) {
+    if (!nome || !cpf || !celular || !email || !senha || !confirmarSenha) {
       setError('Ops! Preencha todos os campos.');
+    }
+
+    if (senha !== confirmarSenha) {
+      setError('Ops! As senhas não conferem.');
     }
 
     try {
@@ -78,16 +82,17 @@ const Register = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name,
+          nome,
           cpf,
           celular,
           email,
-          password,
-          confirmPassword,
+          senha,
+          confirmarSenha,
         }),
       });
 
       if (res.ok) {
+        console.log('user registered successfully');
         const form = event.currentTarget;
         form.reset();
       } else {
@@ -113,10 +118,10 @@ const Register = () => {
         </div>
         <div className="wrap-input">
           <input
-            className={name !== '' ? 'has-val input' : 'input'}
+            className={nome !== '' ? 'has-val input' : 'input'}
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             maxLength={100} // Limite de caracteres para o nome
           />
           <span className="focus-input" data-placeholder="Nome"></span>
@@ -152,19 +157,19 @@ const Register = () => {
         </div>
         <div className="wrap-input">
           <input
-            className={password !== '' ? 'has-val input' : 'input'}
+            className={senha !== '' ? 'has-val input' : 'input'}
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
           />
           <span className="focus-input" data-placeholder="Senha"></span>
         </div>
         <div className="wrap-input">
           <input
-            className={confirmPassword !== '' ? 'has-val input' : 'input'}
+            className={confirmarSenha !== '' ? 'has-val input' : 'input'}
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmarSenha}
+            onChange={(e) => setConfirmarSenha(e.target.value)}
           />
           <span
             className="focus-input"

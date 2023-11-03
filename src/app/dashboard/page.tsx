@@ -1,8 +1,8 @@
 'use client';
 
-import { LayoutComponents } from '@/components/LayoutComponents';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { LayoutComponents } from '@/components/LayoutComponents';
 
 const Dashboard = () => {
   const [name, setName] = useState('');

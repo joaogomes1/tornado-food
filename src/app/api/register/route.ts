@@ -1,6 +1,9 @@
 // import React from 'react'
 
 import { NextResponse } from 'next/server';
+import { connectMongoDB } from '@/lib/mongodb';
+import Usuario from '@/models/usuario';
+import bcrypt from 'bcryptjs';
 
 // const route = () => {
 //   return (
@@ -10,14 +13,17 @@ import { NextResponse } from 'next/server';
 export const POST = async (req: any) => {
   // return new NextResponse('hello', { status: 200 });
   try {
-    const { name, cpf, celular, email, password, confirmPassword } =
-      await req.json();
-    console.log(name);
-    console.log(cpf);
-    console.log(celular);
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
+    const { nome, cpf, celular, email, senha } = await req.json();
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
+    await connectMongoDB();
+    await Usuario.create({
+      nome,
+      cpf,
+      celular,
+      email,
+      senha: senhaCriptografada,
+    });
+
     return NextResponse.json(
       { message: 'Usuário registrado com sucesso.' },
       { status: 201 }
